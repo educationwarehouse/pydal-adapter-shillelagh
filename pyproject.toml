@@ -16,7 +16,7 @@ urls = { "Homepage" = "https://github.com/educationwarehouse/pydal-adapter-rqlit
 
 dependencies = [
     "pydal",
-    "pyrqlite",
+    "shillelagh[all]",
 ]
 
 [project.optional-dependencies]

@@ -1,1 +1,1 @@
-from .adapter_rqlite import Rqlite
+from .adapter_rqlite import Shillelagh
