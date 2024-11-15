@@ -4,12 +4,16 @@ from pydal import DAL
 # import is required, even though pacakge is not used, to set up rqlite:// for pyDAL
 import pydal_rqlite
 
-db = DAL("shillelagh://:memory:", folder="/tmp/database")
+if __name__ == '__main__':
+    db = DAL("shillelagh://:memory:", folder="/tmp/database")
 
-rows = db.executesql(
-    """
-    SELECT * FROM 'https://dummyjson.com/test';
-    """
-)
+    rows = db.executesql(
+        """
+        SELECT stream.id, review.*
+         FROM 'https://dummyjson.com/products#.products[*]' stream,  
+             json_each(reviews) review
+         WHERE stream.id > 25 LIMIT 1;
+        """
+    )
 
-print(rows)
+    print(rows)
