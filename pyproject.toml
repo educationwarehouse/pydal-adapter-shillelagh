@@ -18,6 +18,8 @@ dependencies = [
     "pydal",
     "shillelagh[all]", # todo: not [all]?
     "pip",
+    "apsw<=3.47",
+    # note: apsw 3.47 changes `"SQLError: no such table: "`  into `no such table: `, breaking shillelgh's `NO_SUCH_TABLE`
 ]
 
 [project.optional-dependencies]
