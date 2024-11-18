@@ -3,39 +3,41 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pydal-rqlite"
+name = "pydal-shillelagh"
 dynamic = ["version"]
-description = "Custom pyDAL adapter for rqlite (distributed SQLite)"
+description = "Custom pyDAL adapter for shillelagh (SQLite-to-API magic)"
 readme = "README.md"
 requires-python = ">=3.10"
 license-expression = "MIT"
 authors = [
     {name = "Robin van der Noord", email = "robin.vdn@educationwarehouse.nl"}
 ]
-urls = { "Homepage" = "https://github.com/educationwarehouse/pydal-adapter-rqlite" }
+urls = { "Homepage" = "https://github.com/educationwarehouse/pydal-adapter-shillelagh" }
 
 dependencies = [
     "pydal",
-    "shillelagh[all]",
+    "shillelagh[all]", # todo: not [all]?
+    "pip",
 ]
 
 [project.optional-dependencies]
-# Uncomment and replace <DEV_REQUIREMENTS> with actual dev dependencies if you have them.
 dev = [
     "hatch",
     "python-semantic-release<8",
+    "su6[all]",
+    "edwh",
 ]
 
 [tool.setuptools.packages.find]
-where = ["pydal_rqlite"]
+where = ["pydal_shillelagh"]
 
 [tool.semantic_release]
 branch = "master"
-version_variable = "pydal_rqlite/__about__.py:__version__"
+version_variable = "pydal_shillelagh/__about__.py:__version__"
 change_log = "CHANGELOG.md"
 upload_to_repository = false
 upload_to_release = false
 build_command = "hatch build"
 
 [tool.hatch.version]
-path = "pydal_rqlite/__about__.py"
+path = "pydal_shillelagh/__about__.py"

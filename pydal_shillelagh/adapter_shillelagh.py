@@ -7,6 +7,7 @@ from shillelagh.backends.apsw import db as shillelagh
 
 @adapters.register_for("shillelagh")
 class Shillelagh(SQLite):
+    # todo: postgres variant via multicorn
     drivers = ("shillelagh",)
 
     def _initialize_(self):

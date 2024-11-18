@@ -2,7 +2,7 @@ from pydal import DAL
 
 # noinspection PyUnresolvedReferences
 # import is required, even though pacakge is not used, to set up rqlite:// for pyDAL
-import pydal_rqlite
+import pydal_shillelagh
 
 
 def test_json():

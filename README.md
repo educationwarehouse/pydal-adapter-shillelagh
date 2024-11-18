@@ -12,11 +12,20 @@ API directly.
 from pydal import DAL
 
 # required to register rqlite://
-import pydal_rqlite
+import pydal_shillelagh
 
-db = DAL("rqlite://localhost", folder="database")
-# or with basic auth/custom port/https:
-# db = DAL("rqlite://user:pass@localhost:4001", folder="database", driver_args={'https': True})
+db = DAL("shillelagh://:memory:", folder="/tmp/database")
+
+rows = db.executesql(
+    """
+    SELECT stream.id, review.*
+     FROM 'https://dummyjson.com/products#.products[*]' stream,  
+         json_each(reviews) review
+     WHERE stream.id > 25 LIMIT 1;
+    """
+)
+
+print(rows)
 ```
 
 `db` should now support the same features the `sqlite3` driver
