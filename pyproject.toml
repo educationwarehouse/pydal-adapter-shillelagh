@@ -4,7 +4,6 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pydal-shillelagh"
-dynamic = ["version"]
 description = "Custom pyDAL adapter for shillelagh (SQLite-to-API magic)"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,11 +20,11 @@ dependencies = [
     "apsw<=3.47",
     # note: apsw 3.47 changes `"SQLError: no such table: "`  into `no such table: `, breaking shillelgh's `NO_SUCH_TABLE`
 ]
+version = "0.1.0"
 
 [project.optional-dependencies]
 dev = [
     "hatch",
-    "python-semantic-release<8",
     "su6[all]",
     "edwh",
 ]
@@ -33,13 +32,49 @@ dev = [
 [tool.setuptools.packages.find]
 where = ["pydal_shillelagh"]
 
-[tool.semantic_release]
-branch = "master"
-version_variable = "pydal_shillelagh/__about__.py:__version__"
-change_log = "CHANGELOG.md"
-upload_to_repository = false
-upload_to_release = false
-build_command = "hatch build"
+[tool.vommit]
+allow_breaking_bang = true
+allow_breaking_footer = true
+prerelease_token = "beta"
+confirm = true
+ignore = ["hatchling-backend"]
 
-[tool.hatch.version]
-path = "pydal_shillelagh/__about__.py"
+[tool.vommit.git]
+enabled = true
+origin = "origin"
+branch = "master"
+on_wrong_branch = "error"
+tag_format = "v{version}"
+commit_format = "{version}"
+
+[tool.vommit.changelog]
+enabled = true
+file = "CHANGELOG.md"
+include_prereleases = false
+placeholder = "<!--next-version-placeholder-->"
+placeholder_regex = "<auto>"
+entry_title_format = "## v{version} ({date:%Y-%m-%d})"
+
+[tool.vommit.changelog.levels]
+feat = "Feature{s}"
+fix = "Fix{es}"
+break = "Breaking Change{s}"
+docs = "Documentation"
+perf = "Performance"
+
+[tool.vommit.pypi]
+enabled = true
+use_keyring = true
+
+[tool.vommit.commands]
+clean = "rm -rf ./dist"
+build = "uv build"
+publish = "uv publish"
+post_publish = ""
+
+[tool.vommit.version_bump_map]
+break = "major"
+feat = "minor"
+fix = "patch"
+perf = "patch"
+
